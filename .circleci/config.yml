@@ -14,7 +14,7 @@ jobs:
           command: pwd
       - run:
           name: CD to src
-          command: cd src/
+          command: cd src
       - run:
           name: ls
           command: ls
