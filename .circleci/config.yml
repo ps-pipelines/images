@@ -12,7 +12,7 @@ jobs:
             cd src
             ls
             dotnet restore
-            dotnet build --no-restore --configureation Release
+            dotnet build --no-restore --configuration Release
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory
           root: .
