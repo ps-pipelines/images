@@ -10,6 +10,9 @@ jobs:
           name: CD to src
           command: cd src/
       - run:
+          name: ls
+          command: ls
+      - run:
           name: dotnet restore
           command: dotnet restore
       - run:
