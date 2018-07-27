@@ -7,6 +7,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: ls
+          command: ls      
+      - run:
+          name: pwd
+          command: pwd
+      - run:
           name: CD to src
           command: cd src/
       - run:
