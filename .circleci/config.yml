@@ -27,12 +27,12 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ./
-      - run:
-          name: ls
-          command: ls
-      - run:
-          name: ls
-          command: ls src/PetStore.Images/bin
+      - run: |
+          ls
+          docker login -u $dockeruser -p $dockerpassword
+          docker build -t demopetstore/images:latest -t demopetstore/images:0.$CIRCLE_BUILD_NUM .
+          docker push demopetstore/images
+
          
 workflows:
   version: 2
@@ -40,5 +40,6 @@ workflows:
     jobs:
       - build
       - publish:
+          context: docker
           requires:
             - build
