@@ -1,13 +1,36 @@
 version: 2
 jobs:
   build:
+   working_directory: /tmp
     docker:
       - image: microsoft/aspnetcore-build
     steps:
       - checkout
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
-          name: Print the Current Time
-          command: date
+      - cd src/
+      - dotnet restore
+      - dotnet build --no-restore --configureation Release 
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory
+          root: .
+          # Must be relative path from root
+          paths:
+            - src/PetStore.Images/bin    
+  publish:
+    working_directory: /tmp
+    docker:
+      - image: microsoft/aspnetcore-build
+    steps:
+     - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: .
+      - ls
+      - ls src/PetStore.Images/bin
+         
+workflows:
+  version: 2
+  build_and_publish:
+    jobs:
+      - build
+      - publish:
+          requires:
+            - build
