@@ -23,7 +23,7 @@ jobs:
   publish:
     working_directory: /tmp/petstore
     docker:
-      - image: busybox
+      - image: microsoft/aspnetcore-build
     steps:
       - setup_remote_docker
       - attach_workspace:
