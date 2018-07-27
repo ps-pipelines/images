@@ -29,8 +29,12 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
         at: ./
-      - ls
-      - ls src/PetStore.Images/bin
+      - run:
+          name: ls
+          command: ls
+      - run:
+          name: ls
+          command: ls src/PetStore.Images/bin
          
 workflows:
   version: 2
