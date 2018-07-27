@@ -8,11 +8,11 @@ jobs:
       - checkout
       - run:
           name: CD to src
-          command: 
-            - cd src
-            - ls
-            - dotnet restore
-            - dotnet build --no-restore --configureation Release
+          command: |
+            cd src
+            ls
+            dotnet restore
+            dotnet build --no-restore --configureation Release
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory
           root: .
