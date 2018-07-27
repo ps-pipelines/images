@@ -22,6 +22,8 @@ jobs:
             - Dockerfile   
   publish:
     working_directory: /tmp/petstore
+    docker:
+      - image: busybox
     steps:
       - setup_remote_docker
       - attach_workspace:
@@ -32,7 +34,6 @@ jobs:
           docker login -u $dockeruser -p $dockerpassword
           docker build -t demopetstore/images:latest -t demopetstore/images:0.$CIRCLE_BUILD_NUM .
           docker push demopetstore/images
-
          
 workflows:
   version: 2
