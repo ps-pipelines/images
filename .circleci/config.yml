@@ -20,9 +20,9 @@ jobs:
     docker:
       - image: microsoft/aspnetcore-build
     steps:
-     - attach_workspace:
+      - attach_workspace:
           # Must be absolute path or relative path from working_directory
-        - at: ./
+        at: ./
       - ls
       - ls src/PetStore.Images/bin
          
