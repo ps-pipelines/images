@@ -1,0 +1,4 @@
+dotnet restore
+dotnet build --no-restore --configuration Release
+cd PetStore.Images.Tests/
+dotnet test --no-restore --no-build --configuration Release
