@@ -6,9 +6,15 @@ jobs:
       - image: microsoft/aspnetcore-build
     steps:
       - checkout
-      - cd src/
-      - dotnet restore
-      - dotnet build --no-restore --configureation Release 
+      - run:
+          name: CD to src
+          command: cd src/
+      - run:
+          name: dotnet restore
+          command: dotnet restore
+      - run:
+          name: dotnet build
+          command: dotnet build --no-restore --configureation Release    
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory
           root: .
