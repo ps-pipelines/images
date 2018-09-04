@@ -1,63 +1,89 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using PetStore.Images.Infrastructure;
 
 namespace PetStore.Images
 {
-    [Route("api/v1/[controller]")]
+    [Route("/api/images")]
     public class ImagesController : Controller
     {
-        private readonly IStore store;
+        private readonly IStore _store;
 
         public ImagesController(IStore store)
         {
-            this.store = store;
+            _store = store;
         }
 
-        [HttpGet]
-        [Route("")]
-        public virtual IEnumerable<string> GetFiles()
-        {
-            return store.Files.Keys;
-        }
-
-        [HttpGet]
-        [Route("{id}")]
-        public virtual IActionResult GetFile(string id)
-        {
-            return File(store.Files[id], "image/jpeg");
-        }
-
+        //[Consumes("image/jpeg")]
+        //AddFileUploadParams
         [HttpPost]
         [Route("")]
-        public virtual IEnumerable<string> Upload(IEnumerable<IFormFile> files)
+        public IActionResult UploadImage(List<IFormFile> files)
         {
-            if (files == null)
-                throw new ArgumentNullException(nameof(files));
+            if (files == null || !files.Any()) throw new ArgumentNullException(nameof(files));
+            var file = files.First();
+            if (file.Length <= 0) throw new Exception("no content in the file");
 
-            var results = new List<string>();
-
-            foreach (var file in files)
-            {
-                var content = FormFileToByteArray(file);
-                var id = Guid.NewGuid().ToString();
-                store.Files.Add(id, content);
-                results.Add(id);
-            }
-
-            return results;
+            var image = ReadFully(file.OpenReadStream());
+            var name = _store.Save(file.Name, image);
+            return Ok(name);
         }
 
 
-        private static byte[] FormFileToByteArray(IFormFile file)
+        [HttpPut]
+        [Route("")]
+        public IActionResult UploadImage([FromBody]Image image)
         {
-            using (var memoryStream = new MemoryStream())
+            _store.UpdateName(image.Id, image.Name);
+            return Ok();
+        }
+
+
+
+        [HttpGet]
+        public IActionResult GetImageByQs(
+            [FromQuery(Name = "id")] string id, 
+            [FromQuery(Name = "name")] string name)
+
+        {
+            return string.IsNullOrEmpty(id) 
+                ? Ok(_store.Find(name)) 
+                : Ok(_store.Load(id));
+        }
+
+
+        [HttpGet]
+        [Route("content/{id}")]
+        public IActionResult GetImage(string id)
+        {
+            var image = _store.Load(id);
+            if (image == null)
             {
-                file.CopyTo(memoryStream);
-                return memoryStream.ToArray();
+                return NotFound();
+            }
+
+            return File(image.Content, "image/jpeg");
+        }
+
+
+
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
             }
         }
+
     }
 }

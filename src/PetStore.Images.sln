@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Images", "PetStore.Images\PetStore.Images.csproj", "{DCEA2187-244C-4538-B2F1-45A83605BAF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Images.Tests", "PetStore.Images.Tests\PetStore.Images.Tests.csproj", "{9822661A-74CB-4B67-BCE0-5C88F5595E7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Images.Tests", "PetStore.Images.Tests\PetStore.Images.Tests.csproj", "{9822661A-74CB-4B67-BCE0-5C88F5595E7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Images.Tests.Runner", "PetStore.Images.Tests.Runner\PetStore.Images.Tests.Runner.csproj", "{5DD4831F-227A-4104-A5CC-EBE6B1B89188}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9822661A-74CB-4B67-BCE0-5C88F5595E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9822661A-74CB-4B67-BCE0-5C88F5595E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9822661A-74CB-4B67-BCE0-5C88F5595E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DD4831F-227A-4104-A5CC-EBE6B1B89188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD4831F-227A-4104-A5CC-EBE6B1B89188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD4831F-227A-4104-A5CC-EBE6B1B89188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD4831F-227A-4104-A5CC-EBE6B1B89188}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

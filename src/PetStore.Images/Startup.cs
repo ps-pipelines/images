@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using PetStore.Images.Infrastructure;
 
 namespace PetStore.Images
 {
@@ -13,7 +14,7 @@ namespace PetStore.Images
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IStore, Store>();
+            services.AddSingleton<IStore, SqlStore>();
 
             services.AddMvc().AddJsonOptions(opts =>
             {
