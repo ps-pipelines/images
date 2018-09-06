@@ -8,6 +8,7 @@ This repo contains the services and tests, a sister repo contains the Angular 4+
 
 * dotnet 2.1
 * sql server
+* angular / Npm / Node (see the client repo)
 
 ## runnning the test
 
