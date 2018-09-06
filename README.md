@@ -71,6 +71,7 @@ clone both repo's (this one and the client repo)
   IsCi = true
   driver = chrome
   Port = 5000
+  proxy = true
   ConnectionString = connection string to the database which has read/write access to the images database
 ```
 
