@@ -107,6 +107,7 @@ clone both repo's (this one and the client repo)
 
 ```
   cd <<base-path>>/client/petstore-client
+  npm install
   ng serve --host 0.0.0.0 --disable-host-check --watch
 ```
 
