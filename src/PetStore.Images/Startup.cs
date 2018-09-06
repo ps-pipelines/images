@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -20,19 +21,22 @@ namespace PetStore.Images
             {
                 opts.SerializerSettings.TypeNameHandling = TypeNameHandling.Objects;
                 opts.SerializerSettings.TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple;
-            }); 
+            });
 
-            services.AddCors(options => options.AddPolicy("AllowAllOrigins",
-                policyBuilder =>
-                {
-                    policyBuilder.AllowAnyOrigin();
-                }));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    polly => polly.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
 
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }
