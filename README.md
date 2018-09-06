@@ -8,6 +8,7 @@ This repo contains the services and tests, a sister repo contains the Angular 4+
 
 * dotnet 2.1
 * sql server
+* angular / Npm / Node (see the client repo)
 
 ## runnning the test
 
@@ -62,21 +63,31 @@ clone both repo's (this one and the client repo)
 ```
 
 
-4. set environment varibles
+4. set environment varibles and host
+
+`environment`
+
+``` 
+  IsCi = true
+  driver = chrome
+  Port = 5000
+  proxy = true
+  ConnectionString = connection string to the database which has read/write access to the images database
+```
+
+`host | DNS`
 
 ```
+  images = server which is runnning the PetStore.Images (127.0.0.1)
   sut = server which is runnning the PetStore.Images (127.0.0.1)
-  IsCi = true
-  proxy = server which is runnning the attack proxy (127.0.0.1)
-  driver = chrome
-  ConnectionString = connection string to the database which has read/write access to the images database
+  proxy = server which is runnning the attack proxy (127.0.0.1) 
 ```
 
 5. setup rapid 7 (appspider)
 
     * Main tab (add urls)
 
-        - http://pos:5000
+        - http://images:5000
         - http://sut:5000
         - http://sut:4200
 
@@ -98,6 +109,7 @@ clone both repo's (this one and the client repo)
 
 ```
   cd <<base-path>>/client/petstore-client
+  npm install
   ng serve --host 0.0.0.0 --disable-host-check --watch
 ```
 
