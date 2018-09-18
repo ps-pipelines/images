@@ -41,5 +41,22 @@ namespace PetStore.Images.Tests
 
             Assert.IsTrue(dashBoard.TopPets.Any(pet => pet == name));
         }
+
+        [Test]
+        public void SearchKitten()
+        {
+            var name = "because <script>alert('Injected!');</script> i can";
+
+            var dashBoard = Application.GoToDashBoard(_client.Driver);
+            var petDetails = dashBoard.ClickOnTopPet(2);
+            petDetails.SetPetName(name);
+            petDetails.Save();
+
+            petDetails = dashBoard.Search("because");
+            var result = petDetails.Name;
+            Assert.AreEqual(result, name);
+
+        }
+
     }
 }

@@ -4,6 +4,8 @@ using OpenQA.Selenium;
 
 namespace PetStore.Images.Tests.Pages
 {
+    using System.Threading;
+
     public class Dashboard
     {
         private readonly IWebDriver _driver;
@@ -33,7 +35,22 @@ namespace PetStore.Images.Tests.Pages
             var element = elements.ElementAt(position);
             if (element == null) return null;
             element?.Click();
+            Thread.Sleep(1000); 
+            return new PetDetails(_driver);
+        }
 
+
+        public PetDetails Search(string name)
+        {
+            var element = _driver.FindElement(By.Id("search-box"));
+            element.SendKeys(name);
+            Thread.Sleep(100);
+
+            var result = _driver.FindElements(By.ClassName("search-result")).FirstOrDefault();
+            Thread.Sleep(500);
+            result.FindElement(By.CssSelector("a")).Click();
+
+            Thread.Sleep(1000);
             return new PetDetails(_driver);
         }
 

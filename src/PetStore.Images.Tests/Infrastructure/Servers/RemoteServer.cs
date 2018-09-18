@@ -16,7 +16,7 @@ namespace PetStore.Images.Tests.Infrastructure.Servers
             string proxy;
             Env.Variables.TryGetValue("proxy", out proxy);
 
-            if (string.IsNullOrEmpty(proxy))
+            if (!string.IsNullOrEmpty(proxy))
             {
                 _httpClient = new HttpClient();
             }
@@ -24,7 +24,7 @@ namespace PetStore.Images.Tests.Infrastructure.Servers
             {
                 var handler = new HttpClientHandler()
                 {
-                    Proxy = new WebProxy(new Uri("http://proxy:32768"), false),
+                    Proxy = new WebProxy(new Uri("http://proxy:8081"), false),
                     UseProxy = true
                 };
 
@@ -32,7 +32,7 @@ namespace PetStore.Images.Tests.Infrastructure.Servers
             }
 
             var portNumber = Environment.GetEnvironmentVariable("Port");
-            var url = "http://sut" + (string.IsNullOrEmpty(portNumber) ? "" : $":{portNumber}");
+            var url = "http://sut" + (string.IsNullOrEmpty(portNumber) ? ":5000" : $":{portNumber}");
             
             _httpClient.BaseAddress = new Uri(url);
         }

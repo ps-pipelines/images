@@ -10,7 +10,7 @@ namespace PetStore.Images.Infrastructure
     public class SqlStore : IStore
     {
         private string connectionString =
-            "Data Source=.\\SQLEXPRESS;Initial Catalog=Images;Persist Security Info=True;User ID=testuser;Password=ABC123!!";
+            "Data Source=172.19.8.42;Initial Catalog=images;Persist Security Info=True;User ID=sa;Password=ABC123!!;Pooling=False";
 
         private readonly ILogger<SqlStore> _logger;
 

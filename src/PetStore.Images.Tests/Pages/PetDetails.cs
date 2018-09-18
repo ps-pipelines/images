@@ -2,6 +2,8 @@ using OpenQA.Selenium;
 
 namespace PetStore.Images.Tests.Pages
 {
+    using System.Threading;
+
     public class PetDetails
     {
         private readonly IWebDriver _driver;
@@ -10,6 +12,8 @@ namespace PetStore.Images.Tests.Pages
         {
             _driver = driver;
         }
+
+        public string Name => _driver.FindElement(By.CssSelector("h2")).Text;
 
         public void SetPetName(string name)
         {
@@ -22,6 +26,7 @@ namespace PetStore.Images.Tests.Pages
         {
             var element = _driver.FindElement(By.XPath("//button[text()='save']"));
             element.Click();
+            Thread.Sleep(1000);
             return new Dashboard(_driver);
         }
 

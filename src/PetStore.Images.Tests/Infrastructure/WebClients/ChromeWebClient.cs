@@ -18,7 +18,7 @@ namespace PetStore.Images.Tests.Infrastructure.WebClients
                     Kind = ProxyKind.Manual,
                     IsAutoDetect = false
                 };
-                proxy.HttpProxy = proxy.SslProxy = "http://proxy:32768";
+                proxy.HttpProxy = proxy.SslProxy = "http://proxy:8081";
                 options.Proxy = proxy;
             }
 

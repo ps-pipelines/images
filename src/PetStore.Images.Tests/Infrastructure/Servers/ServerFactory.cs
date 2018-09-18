@@ -9,7 +9,7 @@ namespace PetStore.Images.Tests.Infrastructure.Servers
             string isCi;
             Env.Variables.TryGetValue("IsCi", out isCi);
 
-            var server = string.IsNullOrEmpty(isCi)
+            var server = !string.IsNullOrEmpty(isCi)
                 ? (IServer) new InMemoryServer()
                 : (IServer) new RemoteServer();
 
